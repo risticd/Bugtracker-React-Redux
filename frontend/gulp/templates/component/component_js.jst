@@ -1,0 +1,55 @@
+/* 
+ * Component: <%= project_name %><%= class_name %>
+ */
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// CSS
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+import './<%= class_name %>.less';
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// External Dependencies
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+import React, {Component, PropTypes} from 'react';
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Internal Dependencies
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// ...
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Component Definition
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+class <%= project_name %><%= class_name %> extends Component {
+    static propTypes = {
+    };
+
+    static defaultProps = {
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+        };
+    }
+
+    componentWillMount() {
+        // Component created
+    }
+
+    componentDidMount() {
+        // Component ready
+    }
+
+    render() {
+        return (
+            <div className="<%= project_name.toLowerCase() %>-<%= kebab_name %>">
+                <%= project_name %><%= class_name %> not Implemented.
+            </div>
+        );
+    }
+}
+
+export default <%= project_name %><%= class_name %>;

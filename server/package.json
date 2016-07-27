@@ -1,0 +1,22 @@
+{
+  "name": "express-server",
+  "version": "0.0.1",
+  "description": "Express server with ES6, Babel and Nodemon",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/babel/bin/babel.js ./ --out-dir dist",
+    "start": "node_modules/nodemon/bin/nodemon.js -- node_modules/babel/bin/babel-node.js ./index.js"
+  },
+  "author": "Daniel Ristic",
+  "license": "",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "4.13.3",
+    "mongoose": "^4.5.5"
+  },
+  "devDependencies": {
+    "babel": "5.8.29",
+    "cors": "^2.7.1",
+    "nodemon": "1.8.0"
+  }
+}
