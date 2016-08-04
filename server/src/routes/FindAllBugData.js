@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
     const bugs = mongoose.model('bugs', bugsSchema)
 
     bugs.find({}, (err, docs) => {
-      res.json(docs)
+      res.json(docs.reverse())
       db.close()
     })
   })

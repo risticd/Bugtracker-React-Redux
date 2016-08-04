@@ -13,6 +13,10 @@ import './BugAdd.less';
 import React, {Component, PropTypes} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import {Link} from 'react-router'
+import Snackbar from 'material-ui/Snackbar';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -33,9 +37,7 @@ class BugTrackerProjectBugAdd extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-
-        };
+        this.state = {open: false};
     }
 
     componentWillMount() {
@@ -55,17 +57,30 @@ class BugTrackerProjectBugAdd extends Component {
                 <br/>
                 <TextField id="textfield_problem" floatingLabelText="Problem"/>
                 <br/>
-                <RaisedButton label="Add Bug" primary={true} onClick={this.handleClick}>
-                </RaisedButton>
+                <div id="add-bug-button">
+                <Link to="/admin">
+                <FloatingActionButton onClick={this.handleClick}>
+                <ContentAdd />
+                </FloatingActionButton>
+                </Link>
+                </div>
+                <Snackbar
+                open={this.state.open}
+                message="All fields must be completed to proceed."
+                autoHideDuration={4000}
+                onRequestClose={this.handleRequestClose}
+                />
             </div>
         </div>
         )
     }
 
-    // ES6 syntax {handleClick} for Add Bug button
+    handleRequestClose = () => {
+      this.setState({open: false});
+    };
+
     handleClick = (ev) => {
 
-      ev.preventDefault()
       let name = document.getElementById('textfield_name')
       let problem = document.getElementById('textfield_problem')
 
@@ -73,11 +88,9 @@ class BugTrackerProjectBugAdd extends Component {
         this.props.addBug({status: "New", priority: "Low", owner: name.value, title: problem.value})
       }
       else {
-        alert('Add Bug fields can not be empty.')
+        ev.preventDefault()
+        this.setState({open: true});
       }
-
-      // Clear the form for the next input
-      name.value=""; problem.value="";
     }
 }
 

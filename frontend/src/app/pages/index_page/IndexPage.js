@@ -1,30 +1,15 @@
-/*
- * Component: BugTrackerProjectIndexPage
- */
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// CSS
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import './IndexPage.less';
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// External Dependencies
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import React, {Component, PropTypes} from 'react';
 import BugTrackerProjectBugAdd from '../../components/bug_add/BugAdd'
-import BugsApi from '../../lib/BugsApi'
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Internal Dependencies
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// ...
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Component Definition
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as BugDataActions from './../../actions/BugDataActions';
+import BugsApi from './../../lib/BugsApi'
 
 class BugTrackerProjectIndexPage extends Component {
     static propTypes = {
-      
+
     };
 
     static defaultProps = {
@@ -33,24 +18,21 @@ class BugTrackerProjectIndexPage extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {newbugs: []};
+        this.state = {};
     }
 
     componentWillMount() {
-        // Component created
     }
 
     componentDidMount() {
-        // Component ready
     }
 
     addBug = (newBug) => {
-      BugsApi.addBugData(newBug, data => {
-        this.setState({newbugs: data})
-      })
+      this.props.actions.addNewBugData(newBug)
     }
 
     render() {
+        const {bugdata, actions} = this.props
 
         return (
             <div className="bugtrackerproject-index-page">
@@ -60,4 +42,17 @@ class BugTrackerProjectIndexPage extends Component {
     }
 }
 
-export default BugTrackerProjectIndexPage;
+const mapStateToProps = (state) => {
+  return {
+    bugdata: state.bugDataReducer
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(BugDataActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)
+(BugTrackerProjectIndexPage);

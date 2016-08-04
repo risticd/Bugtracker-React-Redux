@@ -2,15 +2,15 @@ import {URL} from '../constants/api'
 
 class BugsApi {
 
-  static getBugData(callback) {
+  static getBugData(callback, errcallback) {
 
     fetch(URL, {method: 'GET'})
     .then(res => res.json())
     .then(callback)
-    .catch(err => console.log(err))
+    .catch(errcallback)
   }
 
-  static addBugData(newBug, callback) {
+  static addBugData(newBug, callback, errcallback) {
 
     fetch(URL, {method: 'POST',
     headers: {
@@ -20,14 +20,14 @@ class BugsApi {
     })
     .then(res => res.json())
     .then(callback)
-    .catch(err => console.log(err))
+    .catch(errcallback)
   }
 
-  static filterBugData(querydata, callback) {
-    fetch(URL + "/status/" + querydata.status + "/priority/" + querydata.priority, {method: 'GET'})
+  static filterBugData(query, callback, errcallback) {
+    fetch(URL + "/status/" + query.status + "/priority/" + query.priority, {method: 'GET'})
     .then(res => res.json())
     .then(callback)
-    .catch(err => console.log(err))
+    .catch(errcallback)
   }
 
 }

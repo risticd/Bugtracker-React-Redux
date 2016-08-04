@@ -1,31 +1,18 @@
-/*
- * Component: BugTrackerProjectIndexPage
- */
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// CSS
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import './AdminLandingPage.less';
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// External Dependencies
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import React, {Component, PropTypes} from 'react';
 import BugTrackerProjectBugTable from '../../components/bug_table/BugTable'
 import BugTrackerProjectBugFilter from '../../components/bug_filter/BugFilter'
-import BugsApi from '../../lib/BugsApi'
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Internal Dependencies
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// ...
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Component Definition
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as BugDataActions from './../../actions/BugDataActions';
+import Snackbar from 'material-ui/Snackbar';
+import {Link} from 'react-router'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 class BugTrackerProjectAdminLandingPage extends Component {
     static propTypes = {
-      
     };
 
     static defaultProps = {
@@ -33,49 +20,82 @@ class BugTrackerProjectAdminLandingPage extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {bugs: []};
+        this.state={notfiltered:false}
     }
 
     componentWillMount() {
-        // Component created
     }
 
     componentDidMount() {
-        // Component ready
-
-        BugsApi.getBugData(data => {
-          this.setState({bugs: data})
-        })
+      this.props.actions.fetchBugDataIfNeeded()
     }
 
-    filterBugs = (querydata) => {
-      BugsApi.filterBugData(querydata, data => {
-        if(data.length != 0) {
-          this.setState({bugs: data})
-        }
-        else {
-          alert('No documents to display.')
-        }
-      })
+    filterBugs = (query) => {
+      this.props.actions.filterBugData(query)
     }
 
     resetBugList = () => {
-      BugsApi.getBugData(data => {
-        this.setState({bugs: data})
-      })
+      if(this.props.bugdata.filtered) {
+        this.props.actions.invalidateBugData()
+        this.props.actions.fetchBugDataIfNeeded()
+      }
+      else {
+        this.setState({notfiltered: true})
+      }
+    }
+
+    handleRequestCloseNotFiltered = () => {
+      this.setState({notfiltered: false})
+    }
+
+    handleRequestCloseNoResults = () => {
+      this.props.actions.invalidateResultsNotFound()
     }
 
     render() {
+        const {bugdata, actions} = this.props
+
         return (
             <div className="bugtrackerproject-admin-landing-page">
-              <BugTrackerProjectBugFilter filterBugs={this.filterBugs}
-              resetBugList={this.resetBugList}/>
-              <br/>
-              <BugTrackerProjectBugTable bugs={this.state.bugs}/>
+            <div id="add-bug-link">
+            <Link to="/">
+            <FloatingActionButton>
+            <ContentAdd />
+            </FloatingActionButton>
+            </Link>
+            </div>
+            <BugTrackerProjectBugFilter filterBugs={this.filterBugs}
+            resetBugList={this.resetBugList}/>
+            <br/>
+            <BugTrackerProjectBugTable bugs={bugdata.bugs} />
+            <Snackbar
+            open={this.state.notfiltered}
+            message="The bug list is already showing all available data."
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestCloseNotFiltered}
+            />
+            <Snackbar
+            open={this.props.bugdata.resultsNotFound}
+            message="No bugs were found using the selected filter."
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestCloseNoResults}
+            />
             </div>
         );
     }
 }
 
-export default BugTrackerProjectAdminLandingPage;
+const mapStateToProps = (state) => {
+  return {
+    bugdata: state.bugDataReducer
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(BugDataActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)
+(BugTrackerProjectAdminLandingPage);
