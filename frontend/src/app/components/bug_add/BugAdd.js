@@ -17,6 +17,7 @@ import {Link} from 'react-router'
 import Snackbar from 'material-ui/Snackbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -58,7 +59,7 @@ class BugTrackerProjectBugAdd extends Component {
                 <TextField id="textfield_problem" floatingLabelText="Problem"/>
                 <br/>
                 <div id="add-bug-button">
-                <Link to="/admin">
+                <Link to="/viewbugs">
                 <FloatingActionButton onClick={this.handleClick}>
                 <ContentAdd />
                 </FloatingActionButton>

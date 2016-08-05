@@ -48,18 +48,18 @@ class BugTrackerProjectBugFilter extends Component {
         return (
           <div className="bugtrackerproject-bug-filter">
             <h3>Filter Bug List</h3>
-            <SelectField value={this.state.selectedvalues.status}
-            onChange={this.statusHandleChange} floatingLabelText="Status">
-              <MenuItem value="New" primaryText="New" />
-              <MenuItem value="Open" primaryText="Open" />
-              <MenuItem value="Closed" primaryText="Closed" />
-            </SelectField>
-            <br/>
             <SelectField value={this.state.selectedvalues.priority}
             onChange={this.priorityHandleChange} floatingLabelText="Priority">
               <MenuItem value="Low" primaryText="Low" />
               <MenuItem value="Medium" primaryText="Medium" />
               <MenuItem value="High" primaryText="High" />
+            </SelectField>
+            <br/>
+            <SelectField value={this.state.selectedvalues.status}
+            onChange={this.statusHandleChange} floatingLabelText="Status">
+              <MenuItem value="New" primaryText="New" />
+              <MenuItem value="Open" primaryText="Open" />
+              <MenuItem value="Closed" primaryText="Closed" />
             </SelectField>
             <br/>
             <RaisedButton label="Filter" primary={true}  onClick={this.filterHandleClick}>

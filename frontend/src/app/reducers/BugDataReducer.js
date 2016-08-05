@@ -1,8 +1,8 @@
 import {INVALIDATE_BUG_DATA, REQUEST_BUG_DATA,
 RECEIVE_BUG_DATA, FETCH_BUG_DATA_ERROR,
-POST_BUG_DATA_REQUEST, POST_BUG_DATA_ERROR,
+POST_BUG_DATA_REQUEST,
 QUERY_BUG_DATA_REQUEST, RECEIVE_FILTERED_BUG_DATA,
-FILTERED_RESULTS_NOT_FOUND, QUERY_BUG_DATA_ERROR,
+FILTERED_RESULTS_NOT_FOUND,
 INVALIDATE_RESULTS_NOT_FOUND} from './../actions/BugDataActions'
 
 const initialState = {
@@ -12,8 +12,6 @@ const initialState = {
   didInvalidate: false,
   resultsNotFound: false,
   fetchingErr: null,
-  postBugDataErr: null,
-  queryBugDataErr: null,
   lastUpdated: null,
   bugs: []
 }
@@ -65,12 +63,6 @@ const bugDataReducer = (state = initialState, action) => {
           bugs: []
       })
 
-      case POST_BUG_DATA_ERROR:
-        return Object.assign({}, state, {
-          isFetching: false,
-          postBugDataErr: action.message
-      })
-
       case QUERY_BUG_DATA_REQUEST:
         return Object.assign({}, state, {
           didInvalidate: false,
@@ -93,12 +85,6 @@ const bugDataReducer = (state = initialState, action) => {
           isFetching: false,
           fetched: true
         })
-
-      case QUERY_BUG_DATA_ERROR:
-        return Object.assign({}, state, {
-          isFetching: false,
-          queryBugDataErr: action.message
-      })
 
       default:
         return state

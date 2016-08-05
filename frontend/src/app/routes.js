@@ -14,8 +14,8 @@ import { Route, IndexRoute } from 'react-router'
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import SampleProject from './components/SampleProject'
 import BugTrackerProjectIndexPage from './pages/index_page/IndexPage'
-import BugTrackerProjectAdminLandingPage from './pages/admin_landing_page/AdminLandingPage'
-
+import BugTrackerProjectViewBugsPage from './pages/view_bugs_page/ViewBugsPage'
+import BugTrackerProjectEditBugsPage from './pages/edit_bugs_page/EditBugsPage'
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Routes Definition
@@ -26,7 +26,10 @@ export default (
 
         <IndexRoute component={BugTrackerProjectIndexPage}/>
 
-        <Route path="/admin" component={BugTrackerProjectAdminLandingPage}>
+        <Route path="/viewbugs" component={BugTrackerProjectViewBugsPage}>
+        </Route>
+
+        <Route path="/editbugs" component={BugTrackerProjectEditBugsPage}>
         </Route>
 
     </Route>

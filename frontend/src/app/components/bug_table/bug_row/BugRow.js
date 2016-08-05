@@ -12,6 +12,9 @@ import './BugRow.less';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import React, {Component, PropTypes} from 'react';
 import {TableRow ,TableRowColumn} from 'material-ui/Table'
+import {Link} from 'react-router'
+import IconButton from 'material-ui/IconButton';
+import EditBugIcon from 'material-ui/svg-icons/image/edit';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -46,11 +49,17 @@ class BugTrackerProjectBugRow extends Component {
     render() {
         return (
         <TableRow>
-          <TableRowColumn>{this.props.bug._id}</TableRowColumn>
-          <TableRowColumn>{this.props.bug.status}</TableRowColumn>
-          <TableRowColumn>{this.props.bug.priority}</TableRowColumn>
           <TableRowColumn>{this.props.bug.owner}</TableRowColumn>
           <TableRowColumn>{this.props.bug.title}</TableRowColumn>
+          <TableRowColumn>{this.props.bug.priority}</TableRowColumn>
+          <TableRowColumn>{this.props.bug.status}</TableRowColumn>
+          <TableRowColumn>
+          <Link to="/editbugs">
+          <IconButton>
+          <EditBugIcon/>
+          </IconButton>
+          </Link>
+          </TableRowColumn>
         </TableRow>
         );
     }

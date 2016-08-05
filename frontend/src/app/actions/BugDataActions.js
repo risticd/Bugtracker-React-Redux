@@ -11,8 +11,6 @@ export const RECEIVE_BUG_DATA = "RECEIVE_BUG_DATA"
 export const RECEIVE_FILTERED_BUG_DATA = "RECEIVE_FILTERED_BUG_DATA"
 export const FILTERED_RESULTS_NOT_FOUND = "FILTERED_RESULTS_NOT_FOUND"
 export const FETCH_BUG_DATA_ERROR = "FETCH_BUG_DATA_ERROR"
-export const POST_BUG_DATA_ERROR = "POST_BUG_DATA_ERROR"
-export const QUERY_BUG_DATA_ERROR = "QUERY_BUG_DATA_ERROR"
 export const INVALIDATE_RESULTS_NOT_FOUND = "INVALIDATE_RESULTS_NOT_FOUND"
 
 const requestBugData = () => {
@@ -58,21 +56,7 @@ const filteredResultsNotFound = () => {
 const fetchBugDataError = (err) => {
   return {
     type: FETCH_BUG_DATA_ERROR,
-    message: err
-  }
-}
-
-const postBugDataError = (err) => {
-  return {
-    type: POST_BUG_DATA_ERROR,
-    message: err
-  }
-}
-
-const queryBugDataError = (err) => {
-  return {
-    type: QUERY_BUG_DATA_ERROR,
-    message: err
+    message: "Unable to fetch bug data. Please check the server error log."
   }
 }
 
@@ -94,7 +78,7 @@ const postBugData = (newbug) => {
       dispatch(invalidateBugData())
       dispatch(fetchBugDataIfNeeded())
     }, err => {
-      dispatch(postBugDataError(err))
+      dispatch(fetchBugDataError(err))
     })
   }
 }
@@ -110,7 +94,7 @@ const queryBugData = (query) => {
         dispatch(filteredResultsNotFound())
       }
     }, err => {
-      dispatch(queryBugDataError(err))
+      dispatch(fetchBugDataError(err))
     })
   }
 }

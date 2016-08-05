@@ -1,4 +1,4 @@
-import './AdminLandingPage.less';
+import './ViewBugsPage.less';
 
 import React, {Component, PropTypes} from 'react';
 import BugTrackerProjectBugTable from '../../components/bug_table/BugTable'
@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 import * as BugDataActions from './../../actions/BugDataActions';
 import Snackbar from 'material-ui/Snackbar';
 import {Link} from 'react-router'
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import IconButton from 'material-ui/IconButton';
+import HomeIcon from 'material-ui/svg-icons/action/home';
 
-class BugTrackerProjectAdminLandingPage extends Component {
+class BugTrackerProjectViewBugsPage extends Component {
     static propTypes = {
     };
 
@@ -54,20 +54,29 @@ class BugTrackerProjectAdminLandingPage extends Component {
 
     render() {
         const {bugdata, actions} = this.props
+        const styles = {
+          mediumIcon: {
+            width: 48,
+            height: 48,
+          }
+        }
 
         return (
-            <div className="bugtrackerproject-admin-landing-page">
-            <div id="add-bug-link">
+            <div className="bugtrackerproject-view-bugs-page">
+            <div id="index-page-link">
             <Link to="/">
-            <FloatingActionButton>
-            <ContentAdd />
-            </FloatingActionButton>
+            <IconButton tooltip="Back to Add Bugs" tooltipPosition="top-left"
+            iconStyle={styles.mediumIcon}>
+            <HomeIcon/>
+            </IconButton>
             </Link>
             </div>
             <BugTrackerProjectBugFilter filterBugs={this.filterBugs}
             resetBugList={this.resetBugList}/>
             <br/>
-            <BugTrackerProjectBugTable bugs={bugdata.bugs} />
+            <BugTrackerProjectBugTable bugs={this.props.bugdata.bugs}
+            isFetching={this.props.bugdata.isFetching}
+            fetchingErr={this.props.bugdata.fetchingErr}/>
             <Snackbar
             open={this.state.notfiltered}
             message="The bug list is already showing all available data."
@@ -98,4 +107,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)
-(BugTrackerProjectAdminLandingPage);
+(BugTrackerProjectViewBugsPage);
