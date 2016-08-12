@@ -52,6 +52,10 @@ class BugTrackerProjectViewBugsPage extends Component {
       this.props.actions.invalidateResultsNotFound()
     }
 
+    handleRequestCloseBugDeleted = () => {
+      this.props.actions.invalidateBugDeleted()
+    }
+
     render() {
         const {bugdata, actions} = this.props
         const styles = {
@@ -76,7 +80,8 @@ class BugTrackerProjectViewBugsPage extends Component {
             <br/>
             <BugTrackerProjectBugTable bugs={this.props.bugdata.bugs}
             isFetching={this.props.bugdata.isFetching}
-            fetchingErr={this.props.bugdata.fetchingErr}/>
+            fetchingErr={this.props.bugdata.fetchingErr}
+            fetchBugDataByID={this.props.actions.fetchBugDataByID}/>
             <Snackbar
             open={this.state.notfiltered}
             message="The bug list is already showing all available data."
@@ -88,6 +93,12 @@ class BugTrackerProjectViewBugsPage extends Component {
             message="No bugs were found using the selected filter."
             autoHideDuration={4000}
             onRequestClose={this.handleRequestCloseNoResults}
+            />
+            <Snackbar
+            open={this.props.bugdata.bugdeleted}
+            message="Bug successfully deleted!"
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestCloseBugDeleted}
             />
             </div>
         );

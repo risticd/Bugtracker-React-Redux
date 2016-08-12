@@ -30,6 +30,20 @@ class BugsApi {
     .catch(errcallback)
   }
 
+  static fetchBugDataByID(bugid, callback, errcallback) {
+    fetch(URL + "/_id/" + bugid, {method: 'GET'})
+    .then(res => res.json())
+    .then(callback)
+    .catch(errcallback)
+  }
+
+  static deleteBugDataByID(bugid, callback, errcallback) {
+    fetch(URL + "/_id/" + bugid, {method: 'DELETE'})
+    .then(res => res.json())
+    .then(callback)
+    .catch(errcallback)
+  }
+
 }
 
 export default BugsApi

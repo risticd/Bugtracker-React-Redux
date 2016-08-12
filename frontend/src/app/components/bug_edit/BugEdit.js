@@ -1,20 +1,16 @@
 /*
- * Component: BugTrackerProjectBugRow
+ * Component: BugTrackerProjectBugEdit
  */
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // CSS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-import './BugRow.less';
-
+import './BugEdit.less';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // External Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import React, {Component, PropTypes} from 'react';
-import {TableRow ,TableRowColumn} from 'material-ui/Table'
-import {Link} from 'react-router'
-import IconButton from 'material-ui/IconButton';
-import EditBugIcon from 'material-ui/svg-icons/image/edit';
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -24,7 +20,7 @@ import EditBugIcon from 'material-ui/svg-icons/image/edit';
 // Component Definition
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-class BugTrackerProjectBugRow extends Component {
+class BugTrackerProjectBugEdit extends Component {
     static propTypes = {
     };
 
@@ -48,21 +44,10 @@ class BugTrackerProjectBugRow extends Component {
 
     render() {
         return (
-        <TableRow>
-          <TableRowColumn>{this.props.bug.owner}</TableRowColumn>
-          <TableRowColumn>{this.props.bug.title}</TableRowColumn>
-          <TableRowColumn>{this.props.bug.priority}</TableRowColumn>
-          <TableRowColumn>{this.props.bug.status}</TableRowColumn>
-          <TableRowColumn>
-          <Link to="/editbugs">
-          <IconButton>
-          <EditBugIcon/>
-          </IconButton>
-          </Link>
-          </TableRowColumn>
-        </TableRow>
+            <div className="bugtrackerproject-bug-edit">
+            </div>
         );
     }
 }
 
-export default BugTrackerProjectBugRow;
+export default BugTrackerProjectBugEdit;

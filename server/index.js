@@ -1,18 +1,22 @@
 import express from 'express'
-import getrequest from './src/routes/FindAllBugData'
+import getbugdatareq from './src/routes/FindAllBugData'
 import cors from 'cors'
-import postrequest from './src/routes/CreateBugData'
+import postbugdatareq from './src/routes/CreateBugData'
 import bodyparser from 'body-parser'
-import getparamrequest from './src/routes/FindParamBugData'
+import getbugdatabyparamsreq from './src/routes/FindBugDataByParams'
+import getbugdatabyidreq from './src/routes/FindBugDataByID'
+import deletebugdatabyidreq from './src/routes/DeleteBugDataByID'
 
 const app = express()
 
 app.use(cors())
 app.use(express.static('public'))
-app.use('/api/bugs', getrequest)
+app.use('/api/bugs', getbugdatareq)
 app.use(bodyparser.json())
-app.use('/api/bugs', postrequest)
-app.use('/api/bugs/status/:status/priority/:priority', getparamrequest)
+app.use('/api/bugs', postbugdatareq)
+app.use('/api/bugs/status/:status/priority/:priority', getbugdatabyparamsreq)
+app.use('/api/bugs/_id/:_id', getbugdatabyidreq)
+app.use('/api/bugs/_id/:_id', deletebugdatabyidreq)
 
 app.listen(9000, () => {
   console.log('Express server listening on port 9000!')

@@ -14,6 +14,7 @@ import React, {Component, PropTypes} from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Subheader from 'material-ui/Subheader';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -28,7 +29,18 @@ class BugTrackerProjectBugFilter extends Component {
     };
 
     static defaultProps = {
-      style: {marginLeft: 67}
+      style: {
+        marginLeft: 67
+      },
+      iconStyle: {
+        fill: '#000000'
+      },
+      underlineStyle: {
+        borderColor: '#888888'
+      },
+      floatingLabelStyle: {
+        color: '#f77238'
+      }
     };
 
     constructor(props) {
@@ -47,16 +59,20 @@ class BugTrackerProjectBugFilter extends Component {
     render() {
         return (
           <div className="bugtrackerproject-bug-filter">
-            <h3>Filter Bug List</h3>
+            <Subheader>Filter Bug List</Subheader>
             <SelectField value={this.state.selectedvalues.priority}
-            onChange={this.priorityHandleChange} floatingLabelText="Priority">
+            onChange={this.priorityHandleChange} floatingLabelText="Priority"
+            iconStyle={this.props.iconStyle} underlineStyle={this.props.underlineStyle}
+            floatingLabelStyle={this.props.floatingLabelStyle}>
               <MenuItem value="Low" primaryText="Low" />
               <MenuItem value="Medium" primaryText="Medium" />
               <MenuItem value="High" primaryText="High" />
             </SelectField>
             <br/>
             <SelectField value={this.state.selectedvalues.status}
-            onChange={this.statusHandleChange} floatingLabelText="Status">
+            onChange={this.statusHandleChange} floatingLabelText="Status"
+            iconStyle={this.props.iconStyle} underlineStyle={this.props.underlineStyle}
+            floatingLabelStyle={this.props.floatingLabelStyle}>
               <MenuItem value="New" primaryText="New" />
               <MenuItem value="Open" primaryText="Open" />
               <MenuItem value="Closed" primaryText="Closed" />

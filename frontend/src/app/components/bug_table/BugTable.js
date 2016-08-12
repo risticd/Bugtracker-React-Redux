@@ -10,12 +10,13 @@ import './BugTable.less';
 // External Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import React, {Component, PropTypes} from 'react';
-import BugTrackerProjectBugRow from './bug_row/BugRow'
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table'
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow,
+TableRowColumn} from 'material-ui/Table'
 import CircularProgress from 'material-ui/CircularProgress';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
-
-
+import {Link} from 'react-router'
+import EditIcon from 'material-ui/svg-icons/image/edit';
+import HappyIcon from 'material-ui/svg-icons/social/mood';
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -30,13 +31,15 @@ class BugTrackerProjectBugTable extends Component {
     };
 
     static defaultProps = {
+      thcStyle: {
+        color: '#f77238'
+      }
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-
         }
     }
 
@@ -49,7 +52,6 @@ class BugTrackerProjectBugTable extends Component {
     }
 
     render() {
-
         const errorIconStyle = {
             width: 48,
             height: 48,
@@ -59,37 +61,76 @@ class BugTrackerProjectBugTable extends Component {
         let bugRows = null
 
         if(fetchingErr != null) {
-          return <span><ErrorIcon style={errorIconStyle}/>{fetchingErr}</span>
+          return (
+            <div>
+            <ErrorIcon style={errorIconStyle}/>{fetchingErr}
+            </div>
+          )
         }
 
         else if(isFetching) {
           return <CircularProgress size={2} />
         }
 
+        else if(this.props.bugs.length == 0) {
+          return (
+            <div>
+            <ErrorIcon style={errorIconStyle}/> There is no bug data currently in the database.
+            Please add a new bug from the <Link to="/">add bugs</Link> page.
+            </div>
+          )
+        }
+
         else {
           bugRows = this.props.bugs.map((bug) => {
-            return <BugTrackerProjectBugRow key={bug._id} bug={bug} />
+            return (
+              <TableRow key={bug._id}>
+              <TableRowColumn>{bug.owner}</TableRowColumn>
+              <TableRowColumn>{bug.title}</TableRowColumn>
+              <TableRowColumn>{bug.priority}</TableRowColumn>
+              <TableRowColumn>{bug.status}</TableRowColumn>
+              <TableRowColumn>
+              <Link to="editbugs">
+              <EditIcon />
+              </Link>
+              </TableRowColumn>
+              </TableRow>
+            )
           })
         }
 
         return (
             <div className="bugtrackerproject-bug-table">
-              <Table>
+              <Table onRowSelection={this.handleRowSelect}>
                 <TableHeader displaySelectAll={false}>
                   <TableRow>
-                    <TableHeaderColumn>Name</TableHeaderColumn>
-                    <TableHeaderColumn>Problem</TableHeaderColumn>
-                    <TableHeaderColumn>Priority</TableHeaderColumn>
-                    <TableHeaderColumn>Status</TableHeaderColumn>
-                    <TableHeaderColumn>Edit Bug</TableHeaderColumn>
+                    <TableHeaderColumn style={this.props.thcStyle}>Name</TableHeaderColumn>
+                    <TableHeaderColumn style={this.props.thcStyle}>Problem</TableHeaderColumn>
+                    <TableHeaderColumn style={this.props.thcStyle}>Priority</TableHeaderColumn>
+                    <TableHeaderColumn style={this.props.thcStyle}>Status</TableHeaderColumn>
+                    <TableHeaderColumn style={this.props.thcStyle}>Edit Bug</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody displayRowCheckbox={false}>
                   {bugRows}
                 </TableBody>
               </Table>
               </div>
           );
+    }
+
+    editAction = (row) => {
+      if(this.props.bugs.length != 1) {
+
+          let bugid = this.props.bugs[row]._id
+          this.props.fetchBugDataByID(bugid)
+        }
+    }
+
+    handleRowSelect = (selectedrow) => {
+      if(selectedrow.length != 0) {
+        this.editAction(selectedrow)
+      }
     }
 }
 

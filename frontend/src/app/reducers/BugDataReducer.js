@@ -1,9 +1,10 @@
 import {INVALIDATE_BUG_DATA, REQUEST_BUG_DATA,
-RECEIVE_BUG_DATA, FETCH_BUG_DATA_ERROR,
-POST_BUG_DATA_REQUEST,
-QUERY_BUG_DATA_REQUEST, RECEIVE_FILTERED_BUG_DATA,
-FILTERED_RESULTS_NOT_FOUND,
-INVALIDATE_RESULTS_NOT_FOUND} from './../actions/BugDataActions'
+RECEIVE_BUG_DATA, FETCH_BUG_DATA_ERROR, POST_BUG_DATA_REQUEST,
+QUERY_BUG_DATA_REQUEST, QUERY_BUG_DATA_BY_ID_REQUEST,
+RECEIVE_FILTERED_BUG_DATA, RECEIVE_BUG_DATA_BY_ID,
+FILTERED_RESULTS_NOT_FOUND, DELETE_BUG_DATA_BY_ID_REQUEST,
+INVALIDATE_RESULTS_NOT_FOUND, RECEIVE_DELETE_BUG_DATA_BY_ID,
+INVALIDATE_BUG_DELETED} from './../actions/BugDataActions'
 
 const initialState = {
   isFetching: false,
@@ -13,6 +14,7 @@ const initialState = {
   resultsNotFound: false,
   fetchingErr: null,
   lastUpdated: null,
+  bugdeleted: false,
   bugs: []
 }
 
@@ -28,6 +30,11 @@ const bugDataReducer = (state = initialState, action) => {
       case INVALIDATE_RESULTS_NOT_FOUND:
         return Object.assign({}, state, {
           resultsNotFound: false
+      })
+
+      case INVALIDATE_BUG_DELETED:
+        return Object.assign({}, state, {
+          bugdeleted: false
       })
 
       case REQUEST_BUG_DATA:
@@ -70,6 +77,22 @@ const bugDataReducer = (state = initialState, action) => {
           fetched: false,
       })
 
+      case QUERY_BUG_DATA_BY_ID_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true,
+          fetched: false,
+          filtered: false,
+          didInvalidate: false,
+          resultsNotFound: false,
+      })
+
+      case DELETE_BUG_DATA_BY_ID_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true,
+          fetched: false,
+          filtered: false,
+      })
+
       case RECEIVE_FILTERED_BUG_DATA:
         return Object.assign({}, state, {
           isFetching: false,
@@ -84,7 +107,21 @@ const bugDataReducer = (state = initialState, action) => {
           resultsNotFound: true,
           isFetching: false,
           fetched: true
-        })
+      })
+
+      case RECEIVE_BUG_DATA_BY_ID:
+        return Object.assign({}, state, {
+          isFetching: false,
+          fetched: true,
+          filtered: true,
+          bugs: action.payload,
+          lastUpdated: action.receivedAt
+      })
+
+      case RECEIVE_DELETE_BUG_DATA_BY_ID:
+        return Object.assign({}, state, {
+          bugdeleted: action.deleted
+      })
 
       default:
         return state
