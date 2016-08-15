@@ -62,21 +62,27 @@ class BugTrackerProjectEditBugsPage extends Component {
       const {bugdata, actions} = this.props
 
       if(this.props.bugdata.bugs.length != 0) {
-        const bugid = this.props.bugdata.bugs[0]._id
+        const bug = this.props.bugdata.bugs[0]
 
         return (
+          <div className="flexcontainer">
             <div className="bugtrackerproject-edit-bugs-page">
-            <BugTrackerProjectBugDelete bugid={bugid}
+            <BugTrackerProjectBugEdit/>
+            <br/>
+            <BugTrackerProjectBugDelete bugid={bug._id}
             deleteBug={this.props.actions.removeBugDataByID}/>
             </div>
+          </div>
         )
       }
 
       else {
         return (
-          <div className="bugtrackerproject-edit-bugs-page">
-          <ErrorIcon style={this.props.styles.errorIconStyle}/>
-          This page can NOT be accessed directly. Please select a bug from the <Link to="viewbugs">bug list</Link>.
+          <div className="flexcontainer">
+            <div className="bugtrackerproject-edit-bugs-page">
+            <ErrorIcon style={this.props.styles.errorIconStyle}/>
+            This page can NOT be accessed directly. Please select a bug from the <Link to="viewbugs">bug list</Link>.
+            </div>
           </div>
         )
       }

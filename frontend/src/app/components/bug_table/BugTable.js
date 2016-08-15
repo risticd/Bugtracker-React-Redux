@@ -111,7 +111,7 @@ class BugTrackerProjectBugTable extends Component {
                     <TableHeaderColumn style={this.props.thcStyle}>Edit Bug</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
-                <TableBody displayRowCheckbox={false}>
+                <TableBody>
                   {bugRows}
                 </TableBody>
               </Table>

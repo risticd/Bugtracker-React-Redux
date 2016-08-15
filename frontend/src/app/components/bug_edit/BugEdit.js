@@ -10,7 +10,6 @@ import './BugEdit.less';
 // External Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 import React, {Component, PropTypes} from 'react';
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -29,9 +28,7 @@ class BugTrackerProjectBugEdit extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-        };
+        this.state={}
     }
 
     componentWillMount() {
@@ -43,10 +40,15 @@ class BugTrackerProjectBugEdit extends Component {
     }
 
     render() {
+
         return (
-            <div className="bugtrackerproject-bug-edit">
-            </div>
+          <div className="bugtrackerproject-bug-edit">
+          BugEdit component in progress.
+          </div>
         );
+    }
+
+    handleChange = (event) => {
     }
 }
 
