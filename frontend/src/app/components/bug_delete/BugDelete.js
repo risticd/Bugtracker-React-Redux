@@ -67,7 +67,7 @@ class BugTrackerProjectBugDelete extends Component {
             primary={true}
             onTouchTap={this.handleClose}
           />,
-          <Link to="viewbugs">
+          <Link to="/viewbugs">
           <FlatButton
             label="Delete"
             primary={true}

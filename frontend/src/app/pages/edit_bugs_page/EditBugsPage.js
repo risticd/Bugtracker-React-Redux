@@ -61,13 +61,15 @@ class BugTrackerProjectEditBugsPage extends Component {
     render() {
       const {bugdata, actions} = this.props
 
-      if(this.props.bugdata.bugs.length != 0) {
+      if(this.props.bugdata.bugs.length == 1) {
         const bug = this.props.bugdata.bugs[0]
 
         return (
           <div className="flexcontainer">
             <div className="bugtrackerproject-edit-bugs-page">
-            <BugTrackerProjectBugEdit/>
+            <BugTrackerProjectBugEdit bugid={bug._id} problem={bug.title}
+            priority={bug.priority} status={bug.status} name={bug.owner}
+            updateBug={this.props.actions.updateBugData}/>
             <br/>
             <BugTrackerProjectBugDelete bugid={bug._id}
             deleteBug={this.props.actions.removeBugDataByID}/>

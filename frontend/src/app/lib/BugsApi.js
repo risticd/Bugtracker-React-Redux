@@ -44,6 +44,14 @@ class BugsApi {
     .catch(errcallback)
   }
 
+  static updateBugData(bugid, updatequery, callback, errcallback) {
+    fetch(URL + "/_id/" + bugid + "/status/" + updatequery.status +
+    "/priority/" + updatequery.priority + "/title/" + updatequery.problem, {method: 'PUT'})
+    .then(res => res.json())
+    .then(callback)
+    .catch(errcallback)
+  }
+
 }
 
 export default BugsApi

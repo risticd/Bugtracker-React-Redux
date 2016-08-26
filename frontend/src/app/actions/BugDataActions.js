@@ -9,14 +9,17 @@ export const POST_BUG_DATA_REQUEST = "POST_BUG_DATA_REQUEST"
 export const QUERY_BUG_DATA_REQUEST = "QUERY_BUG_DATA_REQUEST"
 export const QUERY_BUG_DATA_BY_ID_REQUEST = "QUERY_BUG_DATA_BY_ID_REQUEST"
 export const DELETE_BUG_DATA_BY_ID_REQUEST = "DELETE_BUG_DATA_BY_ID_REQUEST"
+export const UPDATE_BUG_DATA_REQUEST = "UPDATE_BUG_DATA_REQUEST"
 export const RECEIVE_BUG_DATA = "RECEIVE_BUG_DATA"
 export const RECEIVE_FILTERED_BUG_DATA = "RECEIVE_FILTERED_BUG_DATA"
 export const RECEIVE_BUG_DATA_BY_ID = "RECEIVE_BUG_DATA_BY_ID"
 export const RECEIVE_DELETE_BUG_DATA_BY_ID = "RECEIVE_DELETE_BUG_DATA_BY_ID"
+export const RECEIVE_UPDATED_BUG_DATA = "RECEIVE_UPDATED_BUG_DATA"
 export const FILTERED_RESULTS_NOT_FOUND = "FILTERED_RESULTS_NOT_FOUND"
 export const FETCH_BUG_DATA_ERROR = "FETCH_BUG_DATA_ERROR"
 export const INVALIDATE_RESULTS_NOT_FOUND = "INVALIDATE_RESULTS_NOT_FOUND"
 export const INVALIDATE_BUG_DELETED = "INVALIDATE_BUG_DELETED"
+export const INVALIDATE_BUG_UPDATED = "INVALIDATE_BUG_UPDATED"
 
 const requestBugData = () => {
   return {
@@ -48,6 +51,12 @@ const deleteBugDataByIDRequest = () => {
   }
 }
 
+const updateBugDataRequest = () => {
+  return {
+    type: UPDATE_BUG_DATA_REQUEST
+  }
+}
+
 const receiveBugData = (data) => {
   return {
     type: RECEIVE_BUG_DATA,
@@ -76,6 +85,13 @@ const receiveDeleteBugDataByID = () => {
   return {
     type: RECEIVE_DELETE_BUG_DATA_BY_ID,
     deleted: true,
+  }
+}
+
+const receiveUpdatedBugData = () => {
+  return {
+    type: RECEIVE_UPDATED_BUG_DATA,
+    updated: true,
   }
 }
 
@@ -155,6 +171,19 @@ const deleteBugDataByID = (bugid) => {
   }
 }
 
+const updateBugDataByID = (bugid, updatequery) => {
+  return dispatch => {
+      dispatch(updateBugDataRequest())
+    return BugsApi.updateBugData(bugid, updatequery, data => {
+      dispatch(receiveUpdatedBugData())
+      dispatch(invalidateBugData())
+      dispatch(fetchBugDataIfNeeded())
+    }, err => {
+      dispatch(fetchBugDataError(err))
+    })
+  }
+}
+
 const shouldFetchBugData = (state) => {
   const bugdata = state.bugDataReducer
   if(!bugdata.fetched) {
@@ -219,5 +248,17 @@ export const removeBugDataByID = (bugid) => {
 export const invalidateBugDeleted = () => {
   return {
     type: INVALIDATE_BUG_DELETED
+  }
+}
+
+export const updateBugData = (bugid, updatequery) => {
+  return dispatch => {
+    return dispatch(updateBugDataByID(bugid, updatequery))
+  }
+}
+
+export const invalidateBugUpdated = () => {
+  return {
+    type: INVALIDATE_BUG_UPDATED
   }
 }

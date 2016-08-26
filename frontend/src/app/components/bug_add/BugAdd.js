@@ -17,7 +17,6 @@ import {Link} from 'react-router'
 import Snackbar from 'material-ui/Snackbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import Subheader from 'material-ui/Subheader';
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
@@ -53,7 +52,7 @@ class BugTrackerProjectBugAdd extends Component {
         return (
         <div className="flexcontainer">
             <div className="bugtrackerproject-bug-add">
-                <Subheader>Add New Bug</Subheader>
+                <h3>Add New Bug</h3>
                 <TextField id="textfield_name" floatingLabelText="Name"/>
                 <br/>
                 <TextField id="textfield_problem" floatingLabelText="Problem"/>

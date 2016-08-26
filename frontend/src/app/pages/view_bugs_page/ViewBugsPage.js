@@ -56,6 +56,10 @@ class BugTrackerProjectViewBugsPage extends Component {
       this.props.actions.invalidateBugDeleted()
     }
 
+    handleRequestCloseBugUpdated = () => {
+      this.props.actions.invalidateBugUpdated()
+    }
+
     render() {
         const {bugdata, actions} = this.props
         const styles = {
@@ -99,6 +103,12 @@ class BugTrackerProjectViewBugsPage extends Component {
             message="Bug successfully deleted!"
             autoHideDuration={4000}
             onRequestClose={this.handleRequestCloseBugDeleted}
+            />
+            <Snackbar
+            open={this.props.bugdata.bugupdated}
+            message="Bug successfully updated!"
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestCloseBugUpdated}
             />
             </div>
         );

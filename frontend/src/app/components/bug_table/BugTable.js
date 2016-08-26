@@ -87,8 +87,8 @@ class BugTrackerProjectBugTable extends Component {
               <TableRow key={bug._id}>
               <TableRowColumn>{bug.owner}</TableRowColumn>
               <TableRowColumn>{bug.title}</TableRowColumn>
-              <TableRowColumn>{bug.priority}</TableRowColumn>
               <TableRowColumn>{bug.status}</TableRowColumn>
+              <TableRowColumn>{bug.priority}</TableRowColumn>
               <TableRowColumn>
               <Link to="editbugs">
               <EditIcon />
@@ -106,8 +106,8 @@ class BugTrackerProjectBugTable extends Component {
                   <TableRow>
                     <TableHeaderColumn style={this.props.thcStyle}>Name</TableHeaderColumn>
                     <TableHeaderColumn style={this.props.thcStyle}>Problem</TableHeaderColumn>
-                    <TableHeaderColumn style={this.props.thcStyle}>Priority</TableHeaderColumn>
                     <TableHeaderColumn style={this.props.thcStyle}>Status</TableHeaderColumn>
+                    <TableHeaderColumn style={this.props.thcStyle}>Priority</TableHeaderColumn>
                     <TableHeaderColumn style={this.props.thcStyle}>Edit Bug</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>

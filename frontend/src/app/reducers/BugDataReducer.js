@@ -4,7 +4,8 @@ QUERY_BUG_DATA_REQUEST, QUERY_BUG_DATA_BY_ID_REQUEST,
 RECEIVE_FILTERED_BUG_DATA, RECEIVE_BUG_DATA_BY_ID,
 FILTERED_RESULTS_NOT_FOUND, DELETE_BUG_DATA_BY_ID_REQUEST,
 INVALIDATE_RESULTS_NOT_FOUND, RECEIVE_DELETE_BUG_DATA_BY_ID,
-INVALIDATE_BUG_DELETED} from './../actions/BugDataActions'
+INVALIDATE_BUG_DELETED, INVALIDATE_BUG_UPDATED,
+UPDATE_BUG_DATA_REQUEST, RECEIVE_UPDATED_BUG_DATA} from './../actions/BugDataActions'
 
 const initialState = {
   isFetching: false,
@@ -15,6 +16,7 @@ const initialState = {
   fetchingErr: null,
   lastUpdated: null,
   bugdeleted: false,
+  bugupdated: false,
   bugs: []
 }
 
@@ -35,6 +37,11 @@ const bugDataReducer = (state = initialState, action) => {
       case INVALIDATE_BUG_DELETED:
         return Object.assign({}, state, {
           bugdeleted: false
+      })
+
+      case INVALIDATE_BUG_UPDATED:
+        return Object.assign({}, state, {
+          bugupdated: false
       })
 
       case REQUEST_BUG_DATA:
@@ -93,6 +100,13 @@ const bugDataReducer = (state = initialState, action) => {
           filtered: false,
       })
 
+      case UPDATE_BUG_DATA_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true,
+          fetched: false,
+          filtered: false,
+      })
+
       case RECEIVE_FILTERED_BUG_DATA:
         return Object.assign({}, state, {
           isFetching: false,
@@ -121,6 +135,11 @@ const bugDataReducer = (state = initialState, action) => {
       case RECEIVE_DELETE_BUG_DATA_BY_ID:
         return Object.assign({}, state, {
           bugdeleted: action.deleted
+      })
+
+      case RECEIVE_UPDATED_BUG_DATA:
+        return Object.assign({}, state, {
+          bugupdated: action.updated
       })
 
       default:
