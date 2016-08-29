@@ -1,21 +1,11 @@
-## Project Info
+This is a full-stack bug tracker application built on my free time to learn and make use of recent JavaScript frameworks and libraries. It utilizes Mongo database and Express.js for backend and React.js + Redux for front end. Everything was compiled using Webpack and the source code is ES6 JavaScript transpiled with Babel.
 
-### Generate Task
+This is a Create, Read, Update, Delete application (C.R.U.D)
 
-All new components/pages that don't yet exist should be generated using the `gulp generate` task. Please do not copy/paste other components. The generate task should be used and will ultimately be faster and less error prone to use than manual file creation.
+1. To add a new bug to the bugs database: danielristic.ca/projects/bugtracker - this will take you to the view bugs page upon completion.
 
-### Routing
+2. To view bugs and sort by status and priority: danielristic.ca/projects/bugtracker/viewbugs *there is also a link to the homepage where you can add a new bug.
 
-The React router library is used for page routing. Please refer to the documentation on the react router page for more information.
+3. To update or delete a bug, simply click on the edit pencil icon and it will take you to the edit bugs page. (danielristic.ca/projects/bugtracker/editbugs). *note this page can not be accessed directly without first selecting a bug.
 
-### Material UI
-
-The project uses the material-ui library as a base for many of the components required by the creative designs. Please refer to the material-ui documentation before getting started on this project.
-
-## Getting Started
-
-To setup your development environment, simply run `npm install` from the project root directory.
-
-## Dev Server
-
-The project currently uses webpack to serv the front-end. To start the server, run `npm start` once you've installed the project dependencies with `npm install`.
+Please feel free to try it out and see the power of React and Redux! :)
