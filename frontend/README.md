@@ -1,4 +1,4 @@
-This is a full-stack bug tracker application built on my free time to learn and make use of recent JavaScript frameworks and libraries. It utilizes Mongo database and Express.js for backend and React.js + Redux for front end. Everything was compiled using Webpack and the source code is ES6 JavaScript transpiled with Babel.
+A full-stack bug tracker application built on my free time to learn and make use of recent JavaScript frameworks and libraries. It utilizes Mongo database and Express.js for backend and React.js + Redux for front end. Everything was compiled using Webpack and the source code is ES6 JavaScript transpiled with Babel.
 
 This is a Create, Read, Update, Delete application (C.R.U.D)
 
