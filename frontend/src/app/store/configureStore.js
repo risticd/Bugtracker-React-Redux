@@ -4,5 +4,5 @@ import loggerMiddleware from 'redux-logger'
 import rootReducer from './../reducers/index'
 
 export default function configureStore() {
-    return applyMiddleware(thunkMiddleware, loggerMiddleware())(createStore)(rootReducer)
+    return applyMiddleware(thunkMiddleware)(createStore)(rootReducer)
 }

@@ -17,6 +17,9 @@ import { connect } from 'react-redux';
 import * as BugDataActions from './../../actions/BugDataActions';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
 import {Link} from 'react-router'
+import BackIcon from 'material-ui/svg-icons/navigation/arrow-back';
+import IconButton from 'material-ui/IconButton';
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Internal Dependencies
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -36,6 +39,10 @@ class BugTrackerProjectEditBugsPage extends Component {
         errorIconStyle: {
             width: 48,
             height: 48
+        },
+        backIcon: {
+          width: 30,
+          height: 30
         },
         linkStyle: {
           underline: "none"
@@ -67,12 +74,21 @@ class BugTrackerProjectEditBugsPage extends Component {
         return (
           <div className="flexcontainer">
             <div className="bugtrackerproject-edit-bugs-page">
+            <div id="viewbugs-page-link">
+            <Link to="/viewbugs">
+            <IconButton tooltip="Back to View Bugs" tooltipPosition="top-left"
+            iconStyle={this.props.styles.backIcon}>
+            <BackIcon/>
+            </IconButton>
+            </Link>
+            </div>
             <BugTrackerProjectBugEdit bugid={bug._id} problem={bug.title}
             priority={bug.priority} status={bug.status} name={bug.owner}
             updateBug={this.props.actions.updateBugData}/>
-            <br/>
+            <div className="deletebutton">
             <BugTrackerProjectBugDelete bugid={bug._id}
             deleteBug={this.props.actions.removeBugDataByID}/>
+            </div>
             </div>
           </div>
         )

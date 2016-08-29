@@ -67,7 +67,7 @@ class BugTrackerProjectBugEdit extends Component {
           <br/>
           <TextField id="textfield_problem" floatingLabelText="Problem"
           value={this.state.selectedvalues.problem} onChange={this.updateValue}
-          multiLine={true} />
+          multiLine={true} floatingLabelStyle={this.props.floatingLabelStyle} />
           <br/>
           <SelectField value={this.state.selectedvalues.status}
           onChange={this.statusHandleChange} floatingLabelText="Status"
@@ -86,7 +86,7 @@ class BugTrackerProjectBugEdit extends Component {
             <MenuItem value="Medium" primaryText="Medium" />
             <MenuItem value="High" primaryText="High" />
           </SelectField>
-          <br/> <br/>
+          <br/><br/>
           <Link to="/viewbugs">
           <RaisedButton label="Update Bug" icon={<EditIcon />}
           primary={true} labelPosition="before"  onClick={this.updateHandleClick}>
