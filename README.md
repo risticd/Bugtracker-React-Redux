@@ -7,6 +7,6 @@ This is a Create, Read, Update, Delete application (C.R.U.D)
 
 2. To view bugs and sort by status and priority: [View And Sort Bugs](http://danielristic.ca/projects/bugtracker/viewbugs) *there is also a link to the homepage where you can add a new bug.
 
-3. To update or delete a bug, simply click on the edit pencil icon and it will take you to the edit bugs page. [Update Or Delete A Bug](http://danielristic.ca/projects/bugtracker/editbugs). *note this page can not be accessed directly without first selecting a bug.
+3. To update or delete a bug, simply click on the edit pencil icon and it will take you to the edit bugs page. *note this page can not be accessed directly without first selecting a bug.
 
 Please feel free to try it out and see the power of React and Redux! :)
